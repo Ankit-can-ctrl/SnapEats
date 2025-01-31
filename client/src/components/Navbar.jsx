@@ -46,7 +46,7 @@ function Navbar() {
           <MainButton text="Signup" />
         </div>
         <div className="account-menu">
-          <AccountMenu />
+          <AccountMenu />{" "}
         </div>
       </div>
     </div>
