@@ -8,7 +8,7 @@ import CustomLink from "./CustomLink";
 import AccountMenu from "./AccountMenu";
 
 function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <div className="w-full h-full bg-primary text-white p-5 lg:px-20 flex justify-between items-center">
@@ -41,13 +41,16 @@ function Navbar() {
             </Badge>
           </Link>
         </div>
-        <div className="flex gap-2">
-          <MainButton type="primary" text="Login" />
-          <MainButton text="Signup" />
-        </div>
-        <div className="account-menu">
-          <AccountMenu />{" "}
-        </div>
+        {isLoggedIn ? (
+          <div className="account-menu flex items-center">
+            <AccountMenu />
+          </div>
+        ) : (
+          <div className="flex gap-2">
+            <MainButton type="primary" text="Login" />
+            <MainButton text="Signup" />
+          </div>
+        )}
       </div>
     </div>
   );
