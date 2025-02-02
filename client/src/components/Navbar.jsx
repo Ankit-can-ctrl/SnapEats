@@ -6,9 +6,10 @@ import { TiShoppingCart } from "react-icons/ti";
 import MainButton from "./MainButton";
 import CustomLink from "./CustomLink";
 import AccountMenu from "./AccountMenu";
+import { MdOutlineMenu } from "react-icons/md";
 
 function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <div className="w-full h-full bg-primary text-white p-5 lg:px-20 flex justify-between items-center">
@@ -17,40 +18,43 @@ function Navbar() {
         className="logo flex items-center gap-2 hover:scale-105 transition-all duration-300 ease-in-out"
       >
         <img className="h-[50px]" src={logo} alt="logo" />
-        <span className="text-3xl font-heavy">SnapEats</span>
+        <span className="hidden md:block text-3xl font-heavy">SnapEats</span>
       </Link>
-      <div className="links flex gap-10">
-        <div className=" w-full flex items-center justify-between gap-10 text-xl font-semibold">
+      <div className="links flex items-center justify-center gap-5 lg:gap-10">
+        <div className="hidden xl:flex w-full  items-center justify-between gap-10 text-xl font-semibold">
           <CustomLink path="/" text="Home" />
           <CustomLink path="/menu" text="Menu" />
           <CustomLink path="/about" text="About Us" />
           <CustomLink path="/contact" text="Contact Us" />
-
-          <Link className=" text-2xl" to="/cart">
-            <Badge
-              badgeContent={4}
-              sx={{
-                "& .MuiBadge-badge": {
-                  backgroundColor: "white",
-                  color: "#E93037",
-                  fontWeight: "bold",
-                },
-              }}
-            >
-              <TiShoppingCart />
-            </Badge>
-          </Link>
         </div>
+
         {isLoggedIn ? (
-          <div className="account-menu flex items-center">
+          <div className="account-menu flex items-center gap-5">
+            <Link className=" text-2xl" to="/cart">
+              <Badge
+                badgeContent={4}
+                sx={{
+                  "& .MuiBadge-badge": {
+                    backgroundColor: "white",
+                    color: "#E93037",
+                    fontWeight: "bold",
+                  },
+                }}
+              >
+                <TiShoppingCart />
+              </Badge>
+            </Link>
             <AccountMenu />
           </div>
         ) : (
-          <div className="flex gap-2">
+          <div className="xl:flex hidden gap-2">
             <MainButton type="primary" text="Login" />
             <MainButton text="Signup" />
           </div>
         )}
+        <div className="mobile_menu xl:hidden">
+          <MdOutlineMenu className="text-2xl cursor-pointer" />
+        </div>
       </div>
     </div>
   );

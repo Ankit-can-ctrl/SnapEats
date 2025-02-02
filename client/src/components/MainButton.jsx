@@ -1,6 +1,6 @@
 function MainButton({ type, text }) {
   return (
-    <div className="text-2xl font-semibold">
+    <div className="text-2xl font-bold">
       {type === "primary" ? (
         <button className=" bg-secodary text-black py-3 px-6 hover:bg-black hover:text-white transition-all duration-500 ease-in-out">
           {text}

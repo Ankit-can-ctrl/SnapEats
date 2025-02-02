@@ -1,6 +1,6 @@
 import Header from "./components/Header";
+import HeroSection from "./components/HeroSection";
 import Navbar from "./components/Navbar";
-import Parallax from "./components/Parallax";
 
 function App() {
   return (
@@ -10,8 +10,9 @@ function App() {
         <Navbar />
       </div>
       <div>
-        <Parallax />
+        <HeroSection />
       </div>
+      <div className="h-screen bg-secodary">helo</div>
     </>
   );
 }

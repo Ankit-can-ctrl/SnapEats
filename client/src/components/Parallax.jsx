@@ -47,55 +47,55 @@ const Parallax = () => {
   }, []);
 
   return (
-    <div className=" h-[100vh] w-full bg-primary overflow-hidden">
-      <div className=" relative w-fit ">
-        <div className="absolute z-10 top-10">
+    <div className="  w-full overflow-hidden">
+      <div className="relative mb-20">
+        <div className="absolute z-10 -left-5 top-0 sm:top-10">
           <img
             ref={image1Ref}
             src={image1}
             alt="Rotating Image 1"
-            className="w-[270px] object-cover will-change-transform hover:scale-105 transition-all duration-300 ease-out"
+            className="w-[150px] sm:w-[200px] md:w-[250px] lg:w-[300px] 2xl:w-[270px] object-cover will-change-transform hover:scale-105 transition-all duration-300 ease-out"
             style={{
               transition: "transform 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
         </div>
-        <div className="absolute z-10 left-1/2 -top-10">
+        <div className="absolute z-10 top-10 sm:top-20 right-0 sm:right-5 lg:right:10 2xl:left-1/2 2x:-top-10">
           <img
             ref={image2Ref}
             src={image4}
             alt="Rotating Image 2"
-            className="w-[300px] object-cover will-change-transform hover:scale-105 transition-all duration-300 ease-out"
+            className="w-[150px] sm:w-[200px] md:w-[300px] lg:w-[350px] 2xl:w-[300px] object-cover will-change-transform hover:scale-105 transition-all duration-300 ease-out"
             style={{
               transition: "transform 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
         </div>
-        <div className="absolute z-10 bottom-10 right-10">
+        <div className="absolute z-10 -bottom-20 sm:right-20 right-0 xl:bottom-10 xl:right-10">
           <img
             ref={image5ref}
             src={image3}
             alt="Rotating Image 3"
-            className="w-[260px] object-cover will-change-transform hover:scale-105 transition-all duration-300 ease-out"
+            className="w-[150px]  sm:w-[200px] md:w-[250px] xl:w-[260px] object-cover will-change-transform hover:scale-105 transition-all duration-300 ease-out"
             style={{
               transition: "transform 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
         </div>
 
-        <div className=" absolute z-10  bottom-10">
+        <div className=" absolute z-10 sm:left-20 -bottom-20">
           <img
             ref={image3Ref}
             src={image2}
             alt="Rotating Image 3"
-            className="w-[300px] object-cover will-change-transform hover:scale-105 transition-all duration-300 ease-out"
+            className="w-[150px] sm:w-[200px] md:w-[250px] xl:w-[300px] object-cover will-change-transform hover:scale-105 transition-all duration-300 ease-out"
             style={{
               transition: "transform 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
         </div>
         <div className="block max-w-full h-auto">
-          <img ref={image4ref} className=" w-[900px]" src={pizza} alt="Pizza" />
+          <img ref={image4ref} className=" " src={pizza} alt="Pizza" />
         </div>
       </div>
     </div>
