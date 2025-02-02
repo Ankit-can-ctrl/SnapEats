@@ -1,5 +1,6 @@
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
+import Menu from "./components/Menu";
 import Navbar from "./components/Navbar";
 
 function App() {
@@ -12,7 +13,8 @@ function App() {
       <div>
         <HeroSection />
       </div>
-      <div className="h-screen bg-secodary">helo</div>
+
+      <Menu />
     </>
   );
 }

@@ -26,11 +26,11 @@ const Parallax = () => {
       const scrollPosition = window.scrollY;
 
       // Different rotation speeds and directions for each image
-      const rotation1 = scrollPosition * 0.08;
-      const rotation2 = scrollPosition * -0.07;
-      const rotation3 = scrollPosition * 0.08;
-      const rotation4 = scrollPosition * -0.04;
-      const rotation5 = scrollPosition * -0.09;
+      const rotation1 = scrollPosition * 0.03;
+      const rotation2 = scrollPosition * -0.01;
+      const rotation3 = scrollPosition * 0.02;
+      const rotation4 = scrollPosition * -0.01;
+      const rotation5 = scrollPosition * -0.02;
 
       // Request animation frame for smoother performance
       requestAnimationFrame(() => {
@@ -47,7 +47,7 @@ const Parallax = () => {
   }, []);
 
   return (
-    <div className="  w-full overflow-hidden">
+    <div className="w-full overflow-hidden">
       <div className="relative mb-20">
         <div className="absolute z-10 -left-5 top-0 sm:top-10">
           <img
