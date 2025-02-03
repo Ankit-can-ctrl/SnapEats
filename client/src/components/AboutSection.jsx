@@ -41,7 +41,7 @@ function AboutSection() {
               </span>
             </div>
           </div>
-          <div className="btns flex gap-5">
+          <div className="btns flex gap-5 pb-10">
             <MainButton type={"primary"} text={"Order Now"} />
             <MainButton type={"secondary"} text={"Learn More"} />
           </div>
