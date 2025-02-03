@@ -4,7 +4,8 @@ import HeroSection from "../components/HeroSection";
 import Menu from "../components/Menu";
 import Navbar from "../components/Navbar";
 import Testimonials from "../components/Testimonials";
-
+import Map from "../components/Map";
+import Socials from "../components/Socials";
 function Home() {
   return (
     <div>
@@ -18,6 +19,8 @@ function Home() {
       <Menu />
       <AboutSection />
       <Testimonials />
+      <Socials />
+      <Map />
     </div>
   );
 }

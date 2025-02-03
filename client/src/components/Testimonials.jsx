@@ -12,7 +12,7 @@ function Testimonials() {
   return (
     <div className="flex flex-col gap-10 items-center justify-center py-20 px-10 md:p-20">
       <div className="heading flex flex-col gap-10 items-center ">
-        <h1 className=" text-4xl md:text-6xl font-heavy text-center">
+        <h1 className=" text-4xl md:text-8xl font-heavy text-center">
           What our customers say about us!
         </h1>
         <p className="text-center text-gray-500 md:max-w-[60%]">

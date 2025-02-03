@@ -27,7 +27,7 @@ function Menu() {
   ];
   return (
     <div>
-      <div className=" relative h-fit ">
+      <div className=" relative h-fit w-full overflow-hidden ">
         <DividerRed />
         <div className="menu px-10 pt-28 flex flex-col items-center gap-10 overflow-hidden">
           <h1 className="pt-20 text-6xl text-center lg:text-8xl font-heavy">
