@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import Testimonials from "../components/Testimonials";
 import Map from "../components/Map";
 import Socials from "../components/Socials";
+import Footer from "../components/Footer";
 function Home() {
   return (
     <div>
@@ -21,6 +22,7 @@ function Home() {
       <Testimonials />
       <Socials />
       <Map />
+      <Footer />
     </div>
   );
 }
