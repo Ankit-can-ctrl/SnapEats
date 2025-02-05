@@ -9,7 +9,7 @@ function HeroSection() {
           <h1 className="text-8xl text-center font-heavy">
             The best place to eat in Noida.
           </h1>
-          <p className=" font-semibold text-xl text-center w-[70%]">
+          <p className=" font-semibold text-xl text-center md:w-[70%]">
             Lorem ipsum dolor sit amet consectetur adipiscing elit ugue quam
             diam vitae velit bibendum elementum eget non vivamus volutpat odio
             cras vestibulum purus aliquam.

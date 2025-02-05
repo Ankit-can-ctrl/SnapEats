@@ -1,19 +1,14 @@
-import { LocomotiveScrollProvider } from "react-locomotive-scroll";
-
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import { useRef } from "react";
+import MenuItems from "./pages/MenuItems";
 function App() {
-  const containerRef = useRef(null);
-
   return (
-    <LocomotiveScrollProvider
-      options={{ smooth: true }}
-      containerRef={containerRef}
-    >
-      <div ref={containerRef} className=" font-main">
-        <Home />
-      </div>
-    </LocomotiveScrollProvider>
+    <div className=" font-main">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/menu" element={<MenuItems />} />
+      </Routes>
+    </div>
   );
 }
 
