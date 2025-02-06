@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useAuthContext } from "../Context/StoreContext";
 import { Link } from "react-router-dom";
 import logo from "../assets/icon.png";
 import Badge from "@mui/material/Badge";
@@ -9,10 +9,10 @@ import AccountMenu from "./AccountMenu";
 import { MdOutlineMenu } from "react-icons/md";
 
 function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, login, logout } = useAuthContext();
 
   return (
-    <div className="w-full h-full bg-primary text-white p-5 lg:px-20 flex justify-between items-center">
+    <div className="w-full h-full bg-primary text-white p-5 lg:px-20 flex justify-between items-center ">
       <Link
         to="/"
         className="logo flex items-center gap-2 hover:scale-105 transition-all duration-300 ease-in-out"
@@ -48,7 +48,11 @@ function Navbar() {
           </div>
         ) : (
           <div className="xl:flex hidden gap-2">
-            <MainButton type="primary" text="Login" />
+            <MainButton
+              onClickHandler={() => login()}
+              type="primary"
+              text="Login"
+            />
             <MainButton text="Signup" />
           </div>
         )}

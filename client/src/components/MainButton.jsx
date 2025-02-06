@@ -1,8 +1,11 @@
-function MainButton({ type, text }) {
+function MainButton({ type, text, onClickHandler }) {
   return (
     <div className="text-2xl font-bold">
       {type === "primary" ? (
-        <button className=" bg-secodary text-black py-3 px-6 hover:bg-black hover:text-white transition-all duration-500 ease-in-out">
+        <button
+          onClick={onClickHandler}
+          className=" bg-secodary text-black py-3 px-6 hover:bg-black hover:text-white transition-all duration-500 ease-in-out"
+        >
           {text}
         </button>
       ) : (

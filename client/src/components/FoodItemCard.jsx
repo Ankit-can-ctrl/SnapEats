@@ -35,7 +35,7 @@ const FoodItemCard = ({
   image,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [itemCount, setItemCount] = useState(1);
+  const [itemCount, setItemCount] = useState(0);
 
   return (
     <StyledCard

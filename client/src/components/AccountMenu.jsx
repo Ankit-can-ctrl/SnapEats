@@ -1,9 +1,12 @@
 import { useState, useRef, useEffect } from "react";
+import { useAuthContext } from "../Context/StoreContext";
 import { FaRegUser } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
 const AccountMenu = () => {
+  const { logout } = useAuthContext();
+
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -36,7 +39,7 @@ const AccountMenu = () => {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 z-10 mt-2 min-w-full rounded-lg bg-white py-2 shadow-xl ring-1 ring-black ring-opacity-5">
+        <div className="absolute right-0  mt-2 min-w-full rounded-lg bg-white py-2 shadow-xl ring-1 ring-black ring-opacity-5 z-[100]">
           <div className="px-4 py-2">
             <p className="text-sm font-medium text-gray-900">John Doe</p>
             <p className="text-sm text-gray-500">john@example.com</p>
@@ -54,6 +57,7 @@ const AccountMenu = () => {
 
           <Link
             to="/"
+            onClick={logout}
             href="#logout"
             className="flex items-center gap-2 px-4 py-2 text-sm text-red-700 hover:bg-gray-100"
           >

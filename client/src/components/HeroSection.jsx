@@ -4,7 +4,7 @@ import Parallax from "./Parallax";
 function HeroSection() {
   return (
     <div>
-      <div className=" bg-primary flex flex-col 2xl:flex-row gap-10 xl:gap-0 ">
+      <div className=" bg-primary flex flex-col 2xl:flex-row gap-10 xl:gap-0 z-50">
         <div className=" flex flex-col items-center justify-center gap-10 p-5 py-10 xl:pl-10 text-white">
           <h1 className="text-8xl text-center font-heavy">
             The best place to eat in Noida.

@@ -1,11 +1,10 @@
-import { useStoreContext } from "../Context/useMyContext";
+import { useStoreContext } from "../Context/StoreContext";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
-import { useContext } from "react";
 import FoodItemCard from "../components/FoodItemCard";
 
 function MenuItems() {
-  const { food_list } = useStoreContext();
+  let { food_items } = useStoreContext();
 
   return (
     <div>
@@ -18,7 +17,7 @@ function MenuItems() {
           <br /> eros eu egestas amet nisi lobortis.
         </p>
         <div className="items flex flex-wrap gap-5">
-          {food_list.map((item) => {
+          {food_items?.map((item) => {
             return (
               <FoodItemCard
                 name={item.name}
