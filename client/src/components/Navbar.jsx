@@ -1,4 +1,5 @@
 import { useAuthContext } from "../Context/StoreContext";
+import { useStoreContext } from "../Context/StoreContext";
 import { Link } from "react-router-dom";
 import logo from "../assets/icon.png";
 import Badge from "@mui/material/Badge";
@@ -7,8 +8,9 @@ import MainButton from "./MainButton";
 import CustomLink from "./CustomLink";
 import AccountMenu from "./AccountMenu";
 import { MdOutlineMenu } from "react-icons/md";
+import { useEffect } from "react";
 
-function Navbar() {
+function Navbar({ cart }) {
   const { isLoggedIn, login, logout } = useAuthContext();
 
   return (
@@ -32,7 +34,7 @@ function Navbar() {
           <div className="account-menu flex items-center gap-5">
             <Link className=" text-2xl" to="/cart">
               <Badge
-                badgeContent={4}
+                badgeContent={cart?.length}
                 sx={{
                   "& .MuiBadge-badge": {
                     backgroundColor: "white",

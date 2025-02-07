@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import {
   Card,
   CardMedia,
@@ -28,14 +27,17 @@ const PriceTypography = styled(Typography)(({ theme }) => ({
 }));
 
 const FoodItemCard = ({
+  id,
   name = "Margherita Pizza",
   description = "Fresh mozzarella, tomato sauce, and basil on a crispy crust",
   price = 12.99,
   rating = 4.5,
   image,
+  addToCart,
+  removeFromCart,
+  cart,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [itemCount, setItemCount] = useState(0);
 
   return (
     <StyledCard
@@ -68,12 +70,12 @@ const FoodItemCard = ({
         <PriceTypography variant="h6">${price.toFixed(2)}</PriceTypography>
       </CardContent>
       <CardActions sx={{ justifyContent: "space-between", px: 2, pb: 2 }}>
-        {itemCount === 0 ? (
+        {!cart.find((item) => item.id === id) ? (
           <Button
             variant="contained"
             color="primary"
             startIcon={<AddShoppingCartIcon />}
-            onClick={() => setItemCount(1)}
+            onClick={() => addToCart(id)}
             sx={{
               borderRadius: 2,
               textTransform: "none",
@@ -83,9 +85,9 @@ const FoodItemCard = ({
           </Button>
         ) : (
           <div>
-            <button onClick={() => setItemCount(itemCount - 1)}>-</button>
-            <span>{itemCount}</span>
-            <button onClick={() => setItemCount(itemCount + 1)}>+</button>
+            <button onClick={() => removeFromCart(id)}>-</button>
+            <span>{cart.find((item) => item.id === id).quantity}</span>
+            <button onClick={() => addToCart(id)}>+</button>
           </div>
         )}
       </CardActions>
