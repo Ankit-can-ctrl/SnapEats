@@ -18,6 +18,7 @@ function MenuItems() {
     ...new Set(food_items.map((item) => item.category)),
   ];
   console.log(categories);
+
   return (
     <div>
       <Header />
@@ -28,13 +29,17 @@ function MenuItems() {
           Lorem ipsum dolor sit amet consectetur adipiscing elit egestas
           <br /> eros eu egestas amet nisi lobortis.
         </p>
-        <div className="categories">
-          <ul>
-            <li></li>
-          </ul>
+        <div className="categories flex gap-10">
+          {categories?.map((category, index) => {
+            return (
+              <button key={index} onClick={() => setSelectedCategory(category)}>
+                {category}
+              </button>
+            );
+          })}
         </div>
         <div className="items flex flex-wrap gap-5">
-          {food_items?.map((item) => {
+          {filteredItems?.map((item) => {
             return (
               <FoodItemCard
                 addToCart={addToCart}
