@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import DividerRed from "./DividerRed";
 import MenuItemCard from "./MenuItemCard";
 import cakes from "../assets/menu/cakes.png";
@@ -13,6 +14,12 @@ import drinks from "../assets/menu/drinks.png";
 import MainButton from "./MainButton";
 // this divider has absolute positioning and therfore used inside relative parent
 function Menu() {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (category) => {
+    navigate(`/menu?category=${category}`);
+  };
+
   const menuTitles = [
     { img: cakes, title: "Cakes" },
     { img: chicken, title: "Chicken" },
@@ -45,6 +52,7 @@ function Menu() {
                 key={item.title}
                 img={item.img}
                 title={item.title}
+                handleCategoryClick={handleCategoryClick}
               />
             ))}
           </div>

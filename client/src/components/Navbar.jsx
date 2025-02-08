@@ -8,7 +8,6 @@ import MainButton from "./MainButton";
 import CustomLink from "./CustomLink";
 import AccountMenu from "./AccountMenu";
 import { MdOutlineMenu } from "react-icons/md";
-import { useEffect } from "react";
 
 function Navbar({ cart }) {
   const { isLoggedIn, login, logout } = useAuthContext();

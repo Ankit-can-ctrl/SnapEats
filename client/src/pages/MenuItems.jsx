@@ -1,22 +1,31 @@
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useStoreContext } from "../Context/StoreContext";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import FoodItemCard from "../components/FoodItemCard";
-import { useState } from "react";
 
 function MenuItems() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedCategory, setSelectedCategory] = useState(
+    searchParams.get("category") || "All"
+  );
   const { food_items, addToCart, removeFromCart, cart } = useStoreContext();
 
-  const filteredItems =
-    selectedCategory === "All"
-      ? food_items
-      : food_items.filter((item) => item.category === selectedCategory);
+  const filteredItems = food_items.filter((item) =>
+    selectedCategory === "All" ? true : item.category === selectedCategory
+  );
 
   const categories = [
     "All",
     ...new Set(food_items.map((item) => item.category)),
   ];
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setSearchParams({ category });
+  };
+
   console.log(categories);
 
   return (
@@ -32,28 +41,37 @@ function MenuItems() {
         <div className="categories flex gap-10">
           {categories?.map((category, index) => {
             return (
-              <button key={index} onClick={() => setSelectedCategory(category)}>
+              <button
+                key={index}
+                onClick={() => handleCategoryChange(category)}
+              >
                 {category}
               </button>
             );
           })}
         </div>
-        <div className="items flex flex-wrap gap-5">
-          {filteredItems?.map((item) => {
-            return (
-              <FoodItemCard
-                addToCart={addToCart}
-                removeFromCart={removeFromCart}
-                cart={cart}
-                id={item.id}
-                name={item.name}
-                price={item.price}
-                description={item.description}
-                image={item.image}
-                key={item.id}
-              />
-            );
-          })}
+        <div className="">
+          {filteredItems.length > 0 ? (
+            <div className="items flex flex-wrap gap-5">
+              {filteredItems.map((item) => (
+                <FoodItemCard
+                  addToCart={addToCart}
+                  removeFromCart={removeFromCart}
+                  cart={cart}
+                  id={item.id}
+                  name={item.name}
+                  price={item.price}
+                  description={item.description}
+                  image={item.image}
+                  key={item.id}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="flex justify-center w-full ">
+              <h1>No Items Found!</h1>
+            </div>
+          )}
         </div>
       </div>
     </div>
