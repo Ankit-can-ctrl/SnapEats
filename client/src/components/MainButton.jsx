@@ -9,7 +9,10 @@ function MainButton({ type, text, onClickHandler }) {
           {text}
         </button>
       ) : (
-        <button className=" bg-black text-white py-3 px-6 hover:bg-secodary hover:text-black transition-all duration-500 ease-in-out">
+        <button
+          onClick={onClickHandler}
+          className=" bg-black text-white py-3 px-6 hover:bg-secodary hover:text-black transition-all duration-500 ease-in-out"
+        >
           {text}
         </button>
       )}

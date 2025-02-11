@@ -118,6 +118,7 @@ export const AuthContext = createContext({
 
 export const AuthContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  console.log(isLoggedIn);
   const login = () => {
     setIsLoggedIn(true);
   };

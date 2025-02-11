@@ -4,6 +4,7 @@ import { useStoreContext } from "../Context/StoreContext";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import FoodItemCard from "../components/FoodItemCard";
+import Footer from "../components/Footer";
 
 function MenuItems() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -68,12 +69,13 @@ function MenuItems() {
               ))}
             </div>
           ) : (
-            <div className="flex justify-center w-full ">
+            <div className="flex justify-center w-full h-[500px] ">
               <h1>No Items Found!</h1>
             </div>
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
