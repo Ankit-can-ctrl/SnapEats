@@ -31,7 +31,8 @@ export const food_list = [
   {
     id: 4,
     name: "Veggie Supreme Pizza",
-    image: "https://example.com/veggie-supreme.jpg",
+    image:
+      "https://www.nordicware.com/wp-content/uploads/2021/05/46400_traditional_pizza_pan_02_e.jpg",
     price: 9.49,
     description: "Loaded with bell peppers, olives, onions, and mushrooms.",
     category: "Pizza",

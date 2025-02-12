@@ -12,7 +12,8 @@ import { useState } from "react";
 
 import { ImCross } from "react-icons/im";
 
-function Navbar({ cart }) {
+function Navbar() {
+  const { cart } = useStoreContext();
   const { isLoggedIn, login, logout } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false);
 

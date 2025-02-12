@@ -111,13 +111,13 @@ export const useStoreContext = () => {
 
 // creating auth context
 export const AuthContext = createContext({
-  isLoggedIn: false,
+  isLoggedIn: true,
   login: () => {},
   logout: () => {},
 });
 
 export const AuthContextProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   console.log(isLoggedIn);
   const login = () => {
     setIsLoggedIn(true);

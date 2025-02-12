@@ -54,7 +54,7 @@ const Parallax = () => {
             ref={image1Ref}
             src={image1}
             alt="Rotating Image 1"
-            className="w-[150px] sm:w-[200px] md:w-[250px] lg:w-[300px] 2xl:w-[270px] object-cover will-change-transform hover:scale-105 transition-all duration-300 ease-out"
+            className="w-[150px] sm:w-[200px] md:w-[250px] lg:w-[300px] 2xl:w-[270px] object-cover will-change-transform hover:scale-105  transition-all duration-300 ease-out"
             style={{
               transition: "transform 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
@@ -88,7 +88,7 @@ const Parallax = () => {
             ref={image3Ref}
             src={image2}
             alt="Rotating Image 3"
-            className="w-[150px] sm:w-[200px] md:w-[250px] xl:w-[300px] object-cover will-change-transform hover:scale-105 transition-all duration-300 ease-out"
+            className="w-[150px] sm:w-[200px] md:w-[250px] xl:w-[300px] object-cover will-change-transform hover:scale-105 transition-all  duration-300 ease-out"
             style={{
               transition: "transform 0.1s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
