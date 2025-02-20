@@ -3,8 +3,8 @@ import Home from "./pages/Home";
 import MenuItems from "./pages/MenuItems";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-
-import CartWrapper from "./components/CartWrapper";
+import CheckoutPage from "./pages/CheckoutPage";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -14,7 +14,8 @@ function App() {
         <Route path="/menu" element={<MenuItems />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="*" element={<CartWrapper />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </div>
   );

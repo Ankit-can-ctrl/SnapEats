@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useStoreContext } from "../Context/StoreContext";
 import Header from "../components/Header";
@@ -17,6 +17,11 @@ function MenuItems() {
     selectedCategory === "All" ? true : item.category === selectedCategory
   );
 
+  // on initial render the page will always scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const categories = [
     "All",
     ...new Set(food_items.map((item) => item.category)),
@@ -26,8 +31,6 @@ function MenuItems() {
     setSelectedCategory(category);
     setSearchParams({ category });
   };
-
-  console.log(categories);
 
   return (
     <div>

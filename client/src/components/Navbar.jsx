@@ -1,21 +1,20 @@
 import { useAuthContext } from "../Context/StoreContext";
 import { useStoreContext } from "../Context/StoreContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/icon.png";
 import Badge from "@mui/material/Badge";
 import { TiShoppingCart } from "react-icons/ti";
 import MainButton from "./MainButton";
 import CustomLink from "./CustomLink";
 import AccountMenu from "./AccountMenu";
-import { MdOutlineMenu } from "react-icons/md";
-import { useState } from "react";
 
-import { ImCross } from "react-icons/im";
+import { useState } from "react";
 
 function Navbar() {
   const { cart } = useStoreContext();
   const { isLoggedIn, login, logout } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -37,7 +36,10 @@ function Navbar() {
 
           {isLoggedIn ? (
             <div className="account-menu flex items-center gap-5">
-              <Link className=" text-2xl" to="/cart">
+              <div
+                onClick={() => navigate("/cart")}
+                className=" text-2xl cursor-pointer"
+              >
                 <Badge
                   badgeContent={cart?.length}
                   sx={{
@@ -50,7 +52,8 @@ function Navbar() {
                 >
                   <TiShoppingCart />
                 </Badge>
-              </Link>
+              </div>
+
               <AccountMenu />
             </div>
           ) : (
@@ -109,10 +112,26 @@ function Navbar() {
             isOpen ? "translate-y-0" : "-translate-y-full"
           }`}
         >
-          <CustomLink path="/" text="Home" />
-          <CustomLink path="/menu" text="Menu" />
-          <CustomLink path="/about" text="About Us" />
-          <CustomLink path="/contact" text="Contact Us" />
+          <CustomLink
+            onClickHandler={() => setIsOpen(false)}
+            path="/"
+            text="Home"
+          />
+          <CustomLink
+            onClickHandler={() => setIsOpen(false)}
+            path="/menu"
+            text="Menu"
+          />
+          <CustomLink
+            onClickHandler={() => setIsOpen(false)}
+            path="/about"
+            text="About Us"
+          />
+          <CustomLink
+            onClickHandler={() => setIsOpen(false)}
+            path="/contact"
+            text="Contact Us"
+          />
           {isLoggedIn ? (
             <MainButton onClickHandler={() => logout()} text={"Logout"} />
           ) : (

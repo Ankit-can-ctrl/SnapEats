@@ -12,6 +12,7 @@ import pizza from "../assets/menu/pizza.png";
 import thali from "../assets/menu/thali.png";
 import drinks from "../assets/menu/drinks.png";
 import MainButton from "./MainButton";
+
 // this divider has absolute positioning and therfore used inside relative parent
 function Menu() {
   const navigate = useNavigate();
