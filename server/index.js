@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import foodRouter from "./routes/foodRoutes.js";
+import globalErrorHandler from "./middleware/globalErrorHandler.js";
 
 // Loads env variables in .env file into process.env
 dotenv.config();
@@ -24,9 +25,13 @@ connectDB();
 
 // api endpoints
 app.use("/api/food", foodRouter);
+app.use("/images", express.static("uploads"));
 
 app.get("/", (req, res) => {
   res.send("APi is working fine!");
 });
+
+// global error handler for custom error handler model
+app.use(globalErrorHandler);
 
 app.listen(port, () => console.log("server started on port " + port + "!"));
