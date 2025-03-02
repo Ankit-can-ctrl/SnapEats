@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from "react";
 import { food_list } from "../assets/Data";
-import { useEffect } from "react";
 
 // creating store context and its provider
 export const StoreContext = createContext({ food_items: [] });
@@ -74,8 +73,8 @@ export const AuthContext = createContext({
 });
 
 export const AuthContextProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  console.log(isLoggedIn);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const login = () => {
     setIsLoggedIn(true);
   };

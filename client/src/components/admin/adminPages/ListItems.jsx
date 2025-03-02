@@ -16,7 +16,7 @@ const ListItems = () => {
   // Fetch all food items
   const fetchList = async () => {
     const response = await axios.get(`${backendUrl}/api/food/list`);
-    console.log(response.data.FoodList);
+
     if (response.status === 200) {
       setFoodItems(response.data.FoodList);
     } else {

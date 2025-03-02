@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 const AddItems = () => {
   const backendUrl = "http://localhost:5000";
+  const categories = ["Pizza", "Burger", "Pasta", "Drinks", "Desserts"];
 
   const [formData, setFormData] = useState({
     name: "",
@@ -13,8 +14,6 @@ const AddItems = () => {
     image: null,
     imagePreview: "",
   });
-
-  const categories = ["Pizza", "Burger", "Pasta", "Drinks", "Desserts"];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +25,7 @@ const AddItems = () => {
     if (file) {
       if (file.size > 2 * 1024 * 1024) {
         // Limit to 2MB
-        alert("File size should be less than 2MB");
+        toast.error("File size should not exceed 2MB.");
         return;
       }
       const reader = new FileReader();
@@ -48,7 +47,7 @@ const AddItems = () => {
     if (formData.image) {
       formDataToSend.append("image", formData.image);
     } else {
-      alert("Please select an image");
+      toast.error("Please select an image.");
       return;
     }
 
@@ -77,8 +76,11 @@ const AddItems = () => {
         toast.error(response.data.message);
       }
     } catch (error) {
-      console.log(error);
-      alert("Something went wrong while adding the food item please check!");
+      console.log(error.message || error.response?.data?.message);
+      toast.error(
+        error.response?.data?.message ||
+          "An error occurred while adding the item."
+      );
     }
   };
 
