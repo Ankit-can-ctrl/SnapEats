@@ -232,6 +232,7 @@ const ListItems = () => {
       </div>
 
       {/* Mobile View - List Format */}
+
       <div className="md:hidden">
         {foodItems.map((item) => (
           <div
@@ -240,26 +241,78 @@ const ListItems = () => {
           >
             <div className="flex items-center space-x-3">
               <img
-                src={`http://localhost:5000/uploads/${item.image}`}
+                src={`http://localhost:5000/images/${item.image}`}
                 alt={item.name}
                 className="h-16 w-16 rounded-md object-cover"
               />
               <div>
-                <p className="text-lg font-semibold">{item.name}</p>
-                <p className="text-gray-600">{item.description}</p>
-                <p className="text-blue-500 font-bold">${item.price}</p>
-                <p className="text-sm text-gray-500">
-                  Category: {item.category}
-                </p>
+                {editingItem === item._id ? (
+                  <>
+                    <input
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
+                      className="border p-1 w-full mt-1"
+                      placeholder="Food Name"
+                    />
+                    <input
+                      type="text"
+                      value={formData.desc}
+                      onChange={(e) =>
+                        setFormData({ ...formData, desc: e.target.value })
+                      }
+                      className="border p-1 w-full mt-1"
+                      placeholder="Description"
+                    />
+                    <input
+                      type="number"
+                      value={formData.price}
+                      onChange={(e) =>
+                        setFormData({ ...formData, price: e.target.value })
+                      }
+                      className="border p-1 w-full mt-1"
+                      placeholder="Price"
+                    />
+                    <input
+                      type="text"
+                      value={formData.category}
+                      onChange={(e) =>
+                        setFormData({ ...formData, category: e.target.value })
+                      }
+                      className="border p-1 w-full mt-1"
+                      placeholder="Category"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <p className="text-lg font-semibold">{item.name}</p>
+                    <p className="text-gray-600">{item.desc}</p>
+                    <p className="text-blue-500 font-bold">${item.price}</p>
+                    <p className="text-sm text-gray-500">
+                      Category: {item.category}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
             <div className="mt-2 flex space-x-2">
-              <button
-                onClick={() => handleEditClick(item)}
-                className="bg-yellow-500 text-white px-3 py-1 rounded-md w-full"
-              >
-                Edit
-              </button>
+              {editingItem === item._id ? (
+                <button
+                  onClick={handleUpdate}
+                  className="bg-blue-500 text-white px-3 py-1 rounded-md w-full"
+                >
+                  Save
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleEditClick(item)}
+                  className="bg-yellow-500 text-white px-3 py-1 rounded-md w-full"
+                >
+                  Edit
+                </button>
+              )}
               <button
                 onClick={() => handleDelete(item._id)}
                 className="bg-red-500 text-white px-3 py-1 rounded-md w-full"
