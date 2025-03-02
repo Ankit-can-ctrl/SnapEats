@@ -4,6 +4,7 @@ import {
   addFood,
   listFoodItems,
   deleteFoodItem,
+  updateFood,
 } from "../controllers/foodController.js";
 import addFoodMiddleware from "../middleware/addFoodMiddleware.js";
 
@@ -13,5 +14,6 @@ const foodRouter = express.Router();
 foodRouter.post("/add", upload.single("image"), addFoodMiddleware, addFood);
 foodRouter.get("/list", listFoodItems);
 foodRouter.delete("/remove", deleteFoodItem);
+foodRouter.put("/update", updateFood);
 
 export default foodRouter;

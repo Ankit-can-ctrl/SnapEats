@@ -46,9 +46,9 @@ const listFoodItems = async (req, res, next) => {
 // delete a food item
 const deleteFoodItem = async (req, res, next) => {
   // we are taking id from the body not the url therefore post request
-  const foodItemId = req.body.id;
+  const { foodId } = req.body;
   try {
-    const foodItem = await foodModel.findById(foodItemId);
+    const foodItem = await foodModel.findById(foodId);
     if (!foodItem) return next(new httpError("Food item not found!", 404));
     fs.unlink(`uploads/${foodItem.image}`, (err) => {
       if (err) return next(new httpError("Failed to delete image", 500));
@@ -60,4 +60,37 @@ const deleteFoodItem = async (req, res, next) => {
   }
 };
 
-export { addFood, listFoodItems, deleteFoodItem };
+// updating a food item
+const updateFood = async (req, res, next) => {
+  try {
+    const { foodItemId, name, desc, price, category } = req.body;
+
+    if (!foodItemId) return next(new httpError("Food itemId Reuired!", 404));
+
+    // creating a update object with only provided fields
+    const updateData = {};
+    if (name) updateData.name = name;
+    if (desc) updateData.desc = desc;
+    if (price) updateData.price = price;
+    if (category) updateData.category = category;
+
+    const updatedItem = await foodModel.findByIdAndUpdate(
+      foodItemId,
+      { $set: updateData },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedItem) return next(new httpError("Food item not found!", 404));
+
+    res
+      .status(200)
+      .json({ message: "Food item updated successfully", updatedItem });
+  } catch (error) {
+    console.log("update errr:", error);
+    return next(
+      new httpError(error.message || "Failed to update food item", 500)
+    );
+  }
+};
+
+export { addFood, listFoodItems, deleteFoodItem, updateFood };
