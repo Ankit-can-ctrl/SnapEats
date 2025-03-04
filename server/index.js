@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import foodRouter from "./routes/foodRoutes.js";
 import globalErrorHandler from "./middleware/globalErrorHandler.js";
-
+import userRouter from "./routes/userRoutes.js";
 // Loads env variables in .env file into process.env
 dotenv.config();
 const port = process.env.PORT;
@@ -26,6 +26,7 @@ connectDB();
 // api endpoints
 app.use("/api/food", foodRouter);
 app.use("/images", express.static("uploads"));
+app.use("/api/users", userRouter);
 
 app.get("/", (req, res) => {
   res.send("APi is working fine!");

@@ -7,17 +7,37 @@ import { TiShoppingCart } from "react-icons/ti";
 import MainButton from "./MainButton";
 import CustomLink from "./CustomLink";
 import AccountMenu from "./AccountMenu";
-
+import AuthModal from "../components/AuthModel";
 import { useState } from "react";
 
 function Navbar() {
   const { cart } = useStoreContext();
   const { isLoggedIn, login, logout } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModelOpen] = useState(false);
+  const [loginOn, setLoginOn] = useState(false);
+
   const navigate = useNavigate();
 
+  const handleSignupOpenAuthModal = () => {
+    setIsAuthModelOpen(true);
+    setLoginOn(false);
+  };
+  const handleLoginOpenAuthModal = () => {
+    setIsAuthModelOpen(true);
+    setLoginOn(true);
+  };
+  const handleCloseAuthModal = () => {
+    setIsAuthModelOpen(false);
+  };
   return (
     <>
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={handleCloseAuthModal}
+        loginOn={loginOn}
+        setLoginOn={setLoginOn}
+      />
       <div className="w-full h-full bg-primary text-white p-5 lg:px-20 flex justify-between items-center ">
         <Link
           to="/"
@@ -59,11 +79,14 @@ function Navbar() {
           ) : (
             <div className="xl:flex hidden gap-2">
               <MainButton
-                onClickHandler={() => login()}
+                onClickHandler={handleLoginOpenAuthModal}
                 type="primary"
                 text="Login"
               />
-              <MainButton text="Signup" />
+              <MainButton
+                text="Signup"
+                onClickHandler={handleSignupOpenAuthModal}
+              />
             </div>
           )}
           <div className="mobile_menu xl:hidden">
