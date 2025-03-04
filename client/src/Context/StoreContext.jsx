@@ -5,6 +5,8 @@ import { food_list } from "../assets/Data";
 export const StoreContext = createContext({ food_items: [] });
 
 export const StoreContextProvider = ({ children }) => {
+  const url = "http://localhost:5000";
+  const [token, setToken] = useState("");
   const food_items = food_list;
   const [cart, setCart] = useState([]);
   const [checkoutValues, setCheckoutValues] = useState({
@@ -46,6 +48,9 @@ export const StoreContextProvider = ({ children }) => {
     checkoutValues,
     setCheckoutValues,
     deliveryFee,
+    url,
+    token,
+    setToken,
   };
 
   return (

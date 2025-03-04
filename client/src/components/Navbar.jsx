@@ -15,7 +15,7 @@ function Navbar() {
   const { isLoggedIn, login, logout } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModelOpen] = useState(false);
-  const [loginOn, setLoginOn] = useState(false);
+  const [loginOn, setLoginOn] = useState();
 
   const navigate = useNavigate();
 
@@ -110,17 +110,6 @@ function Navbar() {
                 }`}
               />
             </button>
-            {/* {isOpen ? (
-              <ImCross
-                onClick={() => setIsOpen(false)}
-                className="text-3xl cursor-pointer transform transition-all"
-              />
-            ) : (
-              <MdOutlineMenu
-                onClick={() => setIsOpen(true)}
-                className="text-3xl cursor-pointer"
-              />
-            )} */}
           </div>
         </div>
       </div>
@@ -160,11 +149,14 @@ function Navbar() {
           ) : (
             <div className="flex gap-2">
               <MainButton
-                onClickHandler={() => login()}
+                onClickHandler={handleLoginOpenAuthModal}
                 type="primary"
                 text="Login"
               />
-              <MainButton text="Signup" />
+              <MainButton
+                onClickHandler={handleSignupOpenAuthModal}
+                text="Signup"
+              />
             </div>
           )}
         </div>

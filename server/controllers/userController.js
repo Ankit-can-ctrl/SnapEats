@@ -28,34 +28,36 @@ const registerUser = async (req, res, next) => {
     const user = await newUser.save();
     const token = generateToken(user._id);
 
-    res.status(201).json({
+    return res.status(201).json({
+      message: "Registered successfully",
       token: token,
     });
   } catch (err) {
-    console.log(err);
+    console.log("Registration error", err);
     return next(new httpError("Something went wrong while registering.", 500));
   }
 };
 
 const loginUser = async (req, res, next) => {
-  try {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
+  try {
     const user = await userModel.findOne({ email });
 
     if (!user) {
       return next(new httpError("User does not exist", 400));
     }
 
-    if (user && (await user.matchPassword(password))) {
-      const token = generateToken(user._id);
-      res.status(200).json({
-        message: "User logged in successfully",
-        token: token,
-      });
-    } else {
-      return next(new httpError("Invalid password", 401));
+    const isPasswordValid = await user.matchPassword(password);
+    if (!isPasswordValid) {
+      return next(new httpError("Invalid Password", 401));
     }
+
+    const token = generateToken(user._id);
+    return res.status(200).json({
+      message: "Logged in successfully",
+      token: token,
+    });
   } catch (err) {
     console.log(err);
     return next(new httpError("Something went wrong while logging in.", 500));

@@ -7,7 +7,6 @@ import globalErrorHandler from "./middleware/globalErrorHandler.js";
 import userRouter from "./routes/userRoutes.js";
 // Loads env variables in .env file into process.env
 dotenv.config();
-const port = process.env.PORT;
 
 const app = express();
 
@@ -35,4 +34,6 @@ app.get("/", (req, res) => {
 // global error handler for custom error handler model
 app.use(globalErrorHandler);
 
-app.listen(port, () => console.log("server started on port " + port + "!"));
+app.listen(process.env.PORT, () =>
+  console.log("server started on port " + port + "!")
+);
