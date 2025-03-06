@@ -1,4 +1,3 @@
-import { useAuthContext } from "../Context/StoreContext";
 import { useStoreContext } from "../Context/StoreContext";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/icon.png";
@@ -9,10 +8,10 @@ import CustomLink from "./CustomLink";
 import AccountMenu from "./AccountMenu";
 import AuthModal from "../components/AuthModel";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 function Navbar() {
-  const { cart } = useStoreContext();
-  const { isLoggedIn, login, logout } = useAuthContext();
+  const { cart, token, setToken } = useStoreContext();
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModelOpen] = useState(false);
   const [loginOn, setLoginOn] = useState();
@@ -29,6 +28,13 @@ function Navbar() {
   };
   const handleCloseAuthModal = () => {
     setIsAuthModelOpen(false);
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/");
+    toast.success("Logged out successfully");
   };
   return (
     <>
@@ -54,7 +60,7 @@ function Navbar() {
             <CustomLink path="/contact" text="Contact Us" />
           </div>
 
-          {isLoggedIn ? (
+          {token ? (
             <div className="account-menu flex items-center gap-5">
               <div
                 onClick={() => navigate("/cart")}
@@ -74,7 +80,7 @@ function Navbar() {
                 </Badge>
               </div>
 
-              <AccountMenu />
+              <AccountMenu logout={handleSignOut} />
             </div>
           ) : (
             <div className="xl:flex hidden gap-2">
@@ -144,8 +150,8 @@ function Navbar() {
             path="/contact"
             text="Contact Us"
           />
-          {isLoggedIn ? (
-            <MainButton onClickHandler={() => logout()} text={"Logout"} />
+          {token ? (
+            <MainButton onClickHandler={handleSignOut} text={"Sign Out"} />
           ) : (
             <div className="flex gap-2">
               <MainButton

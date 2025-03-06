@@ -1,12 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import { useAuthContext } from "../Context/StoreContext";
 import { FaRegUser } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
-const AccountMenu = () => {
-  const { logout } = useAuthContext();
-
+const AccountMenu = ({ logout }) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
 

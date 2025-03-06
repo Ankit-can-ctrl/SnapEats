@@ -62,26 +62,22 @@ export default function AuthModal({
 
     try {
       const response = await axios.post(newUrl, authData, {
-        validateStatus: (status) => status < 500, // Prevent Axios from throwing errors for 4xx
+        validateStatus: (status) => status < 500,
       });
 
-      if (response.status === 400) {
-        toast.error(response.data.error);
-        return; // Stop execution here
+      if (response.status === 201 || response.status === 200) {
+        toast.success(response.data.message);
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        setAuthData({
+          name: "",
+          email: "",
+          password: "",
+        });
+        onClose();
       }
-
-      toast.success("Login Successful!");
-
-      setToken(response.data.token);
-
-      setAuthData({
-        name: "",
-        email: "",
-        password: "",
-      });
-      onClose();
     } catch (error) {
-      toast.error(error.response.data.error); // Only show toast, don't log error
+      toast.error(error.response.data.error);
     }
   };
 
