@@ -3,7 +3,6 @@ import axios from "axios";
 import { useStoreContext } from "../Context/StoreContext";
 import { toast } from "react-toastify";
 import { AiOutlineClose } from "react-icons/ai";
-import { useEffect } from "react";
 
 export default function AuthModal({
   isOpen = true,
@@ -20,24 +19,69 @@ export default function AuthModal({
   const { url, setToken } = useStoreContext();
 
   const changeInputHandler = (e) => {
-    setAuthData({ ...authData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setAuthData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const validateForm = (authData, isLogin) => {
+    let errors = {};
+
+    if (!isLogin && !authData.name.trim()) {
+      errors.name = "Name is required";
+    }
+
+    if (!authData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/^\S+@\S+\.\S+$/.test(authData.email)) {
+      errors.email = "Invalid email format";
+    }
+
+    if (!authData.password.trim()) {
+      errors.password = "Password is required";
+    } else if (authData.password.length < 8) {
+      errors.password = "Password must be at least 8 characters long";
+    }
+
+    return errors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const endpoint = loginOn ? "login" : "register";
-    const newUrl = `${url}/api/users/${endpoint}`;
+    // ✅ Validate Input Data
+    const errors = validateForm(authData, loginOn);
+    if (Object.keys(errors).length > 0) {
+      toast.error(Object.values(errors)[0]);
+      return;
+    }
+
+    const newUrl = `${url}/api/users/${loginOn ? "login" : "register"}`;
 
     try {
-      const resposne = await axios.post(newUrl, authData);
-      toast.success(resposne.data.message);
-      setToken(resposne.data.token);
+      const response = await axios.post(newUrl, authData, {
+        validateStatus: (status) => status < 500, // Prevent Axios from throwing errors for 4xx
+      });
+
+      if (response.status === 400) {
+        toast.error(response.data.error);
+        return; // Stop execution here
+      }
+
+      toast.success("Login Successful!");
+
+      setToken(response.data.token);
+
+      setAuthData({
+        name: "",
+        email: "",
+        password: "",
+      });
       onClose();
     } catch (error) {
-      const errorMessage = error.response?.data?.message || "An error occurred";
-      toast.error(errorMessage);
-      return;
+      toast.error(error.response.data.error); // Only show toast, don't log error
     }
   };
 

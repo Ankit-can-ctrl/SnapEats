@@ -1,7 +1,15 @@
 const globalErrorHandler = (error, req, res, next) => {
-  res.status(error.statusCode || 500).json({
+  if (res.headersSent) {
+    return next(error);
+  }
+
+  const statusCode = error.statusCode || error.code || 500;
+  const message = error.message || "Internal Server Error";
+
+  res.status(statusCode).json({
     success: false,
-    message: error.message || "Something went wrong!",
+    message: message,
+    ...(process.env.NODE_ENV === "development" && { stack: error.stack }),
   });
 };
 

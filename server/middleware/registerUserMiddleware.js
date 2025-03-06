@@ -1,39 +1,43 @@
 import { body, validationResult } from "express-validator";
 
-export const validateRegister = [
-  body("name")
-    .notEmpty()
-    .withMessage("Name is required")
-    .trim()
-    .isLength({ min: 2 })
-    .withMessage("Name must be at least 2 characters long")
-    .matches(/^[a-zA-Z\s]+$/)
-    .withMessage("Name can only contain letters and spaces"),
-
+// Validation rules for user registration
+export const validateUserRegistration = [
+  body("name").notEmpty().withMessage("Name is required"),
   body("email")
-    .notEmpty()
-    .withMessage("Email is required")
     .isEmail()
-    .withMessage("Invalid email format")
-    .normalizeEmail(),
+    .withMessage("Invalid email address")
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
+    .withMessage("Invalid email format"),
 
   body("password")
-    .notEmpty()
-    .withMessage("Password is required")
-    .isLength({ min: 8 })
-    .withMessage("Password must be at least 8 characters long")
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]/)
-    .withMessage("Password must contain at least one letter and one number"),
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters long"),
 ];
 
-const registerUserMiddleware = (req, res, next) => {
+// Validation rules for login (Ignore empty `name` field)
+export const validateUserLogin = [
+  body("email")
+    .isEmail()
+    .withMessage("Invalid email address")
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
+    .withMessage("Invalid email format"),
+
+  body("password").notEmpty().withMessage("Password is required"),
+  body("name")
+    .optional()
+    .custom((value) => {
+      if (value !== "" && typeof value !== "string") {
+        throw new Error("Invalid name format");
+      }
+      return true;
+    }),
+];
+
+// Middleware to handle validation errors
+export const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res
-      .status(400)
-      .json("something went wrong with the registration process");
+    return res.status(400).json({ error: errors.array().map((e) => e.msg)[0] });
   }
   next();
 };
-
-export default registerUserMiddleware;

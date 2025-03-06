@@ -1,4 +1,5 @@
 import httpError from "../models/http-model.js";
+
 const addFoodMiddleware = (req, res, next) => {
   const { name, desc, price, category } = req.body;
 
