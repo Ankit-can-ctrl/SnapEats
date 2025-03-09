@@ -1,11 +1,13 @@
+import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import { food_list } from "../assets/Data";
+import { toast } from "react-toastify";
 
 // creating store context and its provider
 export const StoreContext = createContext({ food_items: [] });
 
 export const StoreContextProvider = ({ children }) => {
   const url = "http://localhost:5000";
+  const [food_list, setFoodList] = useState([]);
   const [token, setToken] = useState("");
   const food_items = food_list;
   const [cart, setCart] = useState([]);
@@ -13,16 +15,21 @@ export const StoreContextProvider = ({ children }) => {
     subtotal: 0,
   });
   const deliveryFee = 2;
+
   const addToCart = (id) => {
-    setCart((prev) => {
-      const existing = prev.find((item) => item.id === id);
-      if (existing) {
-        return prev.map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      }
-      return [...prev, { id, quantity: 1 }];
-    });
+    if (token) {
+      setCart((prev) => {
+        const existing = prev.find((item) => item.id === id);
+        if (existing) {
+          return prev.map((item) =>
+            item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+          );
+        }
+        return [...prev, { id, quantity: 1 }];
+      });
+    } else {
+      toast.error("Please Login to add items");
+    }
   };
 
   const removeFromCart = (id) => {
@@ -40,11 +47,22 @@ export const StoreContextProvider = ({ children }) => {
     });
   };
 
+  const fetchFoodList = async () => {
+    const response = await axios.get(url + "/api/food/list");
+    setFoodList(response.data.FoodList);
+  };
+
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      setToken(localStorage.getItem("token"));
+    async function loadData() {
+      fetchFoodList();
+      if (localStorage.getItem("token")) {
+        setToken(localStorage.getItem("token"));
+      }
     }
+    loadData();
   }, []);
+
+  console.log(cart);
 
   const contextValue = {
     food_items,

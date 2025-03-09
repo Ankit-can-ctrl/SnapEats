@@ -14,14 +14,14 @@ function Cart() {
     removeFromCart,
     addToCart,
     setCheckoutValues,
-    checkoutValues,
+    url,
     deliveryFee,
   } = useStoreContext();
 
   let subtotal = 0;
   cart.forEach((item) => {
     const itemId = item.id;
-    const foodItem = food_items.find((food) => food.id === itemId); // Find the item by ID
+    const foodItem = food_items.find((food) => food._id === itemId); // Find the item by ID
 
     if (foodItem) {
       subtotal += item.quantity * foodItem.price;
@@ -53,17 +53,17 @@ function Cart() {
           {cart.length > 0 &&
             cart.map((cartItem) => {
               const itemDetails = food_items.find(
-                (food) => food.id === cartItem.id
+                (food) => food._id === cartItem.id
               );
               return itemDetails ? (
                 <div
                   className="cart_item grid grid-cols-4 w-full place-items-center py-4"
                   key={cartItem.id}
                 >
-                  <div className="item flex flex-col items-center justify-center">
+                  <div className="item flex flex-col text-center items-center justify-center">
                     <img
                       className="w-[50px]"
-                      src={itemDetails.image}
+                      src={url + "/images/" + itemDetails.image}
                       alt={itemDetails.name}
                     />
                     <p>{itemDetails.name}</p>

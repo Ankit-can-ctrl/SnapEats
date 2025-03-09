@@ -38,22 +38,19 @@ const FoodItemCard = ({
   cart,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const cartItem = cart.find((item) => item.id === id);
 
   return (
     <StyledCard
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <CardMedia
-        component="img"
-        height="154"
-        image={image}
-        alt={name}
-        sx={{
-          transition: "transform 0.3s ease-in-out",
-          transform: isHovered ? "scale(1.05)" : "scale(1)",
-        }}
+      <img
+        src={image}
+        alt="image"
+        className="max-h-[150px] w-full h-full object-cover object-center transform duration-300 ease-in-out hover:scale-105"
       />
+
       <CardContent>
         <Typography variant="h6" component="div" gutterBottom>
           {name}
@@ -70,19 +67,14 @@ const FoodItemCard = ({
         <PriceTypography variant="h6">${price.toFixed(2)}</PriceTypography>
       </CardContent>
       <CardActions sx={{ justifyContent: "space-between", px: 2, pb: 2 }}>
-        {!cart.find((item) => item.id === id) ? (
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<AddShoppingCartIcon />}
+        {!cartItem ? (
+          <button
+            className=" bg-primary text-white font-semibold hover:bg-secodary hover:text-black px-3 py-2 rounded-lg transition-all duration-300"
             onClick={() => addToCart(id)}
-            sx={{
-              borderRadius: 2,
-              textTransform: "none",
-            }}
           >
+            <AddShoppingCartIcon />
             Add to Cart
-          </Button>
+          </button>
         ) : (
           <div>
             <button onClick={() => removeFromCart(id)}>-</button>

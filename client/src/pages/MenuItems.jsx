@@ -11,7 +11,8 @@ function MenuItems() {
   const [selectedCategory, setSelectedCategory] = useState(
     searchParams.get("category") || "All"
   );
-  const { food_items, addToCart, removeFromCart, cart } = useStoreContext();
+  const { food_items, addToCart, removeFromCart, cart, url } =
+    useStoreContext();
 
   const filteredItems = food_items.filter((item) =>
     selectedCategory === "All" ? true : item.category === selectedCategory
@@ -56,18 +57,18 @@ function MenuItems() {
         </div>
         <div className="">
           {filteredItems.length > 0 ? (
-            <div className="items flex flex-wrap gap-5">
+            <div className="items flex flex-wrap gap-5 items-center justify-center">
               {filteredItems.map((item) => (
                 <FoodItemCard
                   addToCart={addToCart}
                   removeFromCart={removeFromCart}
                   cart={cart}
-                  id={item.id}
+                  id={item._id}
                   name={item.name}
                   price={item.price}
                   description={item.description}
-                  image={item.image}
-                  key={item.id}
+                  image={url + "/images/" + item.image}
+                  key={item._id}
                 />
               ))}
             </div>
