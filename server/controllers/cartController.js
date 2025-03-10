@@ -28,8 +28,52 @@ const addToCart = async (req, res, next) => {
   }
 };
 
-const removeFromCart = async (req, res, next) => {};
+const removeFromCart = async (req, res, next) => {
+  try {
+    const { itemId } = req.body;
+    console.log(itemId);
+    if (!itemId) {
+      return res.status(403).json({
+        message: "Please Provide Item Id",
+      });
+    }
+    console.log("itemId:", itemId);
+    let userData = await userModel.findById({ _id: req.body.userId });
+    let cartData = await userData.cartData;
 
-const getCartItems = async (req, res, next) => {};
+    if (cartData[itemId] > 1) {
+      cartData[itemId] -= 1;
+    } else if (cartData[itemId] <= 1) {
+      delete cartData[itemId];
+    } else {
+      res.status(403).json({
+        message: "Item Not Found In Cart!",
+      });
+    }
+    await userModel.findByIdAndUpdate(req.body.userId, { cartData });
+    res.status(200).json({ message: "Item Removed From Cart" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Something Went Wrong While Removing Item From Cart",
+    });
+  }
+};
+
+const getCartItems = async (req, res, next) => {
+  try {
+    let userData = await userModel.findById({ _id: req.body.userId });
+    let cartData = await userData.cartData;
+    if (Object.keys(cartData).length === 0) {
+      return res.status(200).json({ message: "Your Cart Is Empty!" });
+    }
+    res.status(200).json(cartData);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Something went wrong while getting cart items",
+    });
+  }
+};
 
 export { addToCart, removeFromCart, getCartItems };

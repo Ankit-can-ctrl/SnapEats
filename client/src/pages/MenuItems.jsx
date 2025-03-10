@@ -5,12 +5,15 @@ import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import FoodItemCard from "../components/FoodItemCard";
 import Footer from "../components/Footer";
+import Loader from "../components/Loader";
 
 function MenuItems() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState(
     searchParams.get("category") || "All"
   );
+  const [loading, setLoading] = useState(true);
+
   const { food_items, addToCart, removeFromCart, cart, url } =
     useStoreContext();
 
@@ -21,6 +24,10 @@ function MenuItems() {
   // on initial render the page will always scroll to top
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Simulating API loading state
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000); // Adjust based on actual API response time
   }, []);
 
   const categories = [
@@ -55,29 +62,33 @@ function MenuItems() {
             );
           })}
         </div>
-        <div className="">
-          {filteredItems.length > 0 ? (
-            <div className="items flex flex-wrap gap-5 items-center justify-center">
-              {filteredItems.map((item) => (
-                <FoodItemCard
-                  addToCart={addToCart}
-                  removeFromCart={removeFromCart}
-                  cart={cart}
-                  id={item._id}
-                  name={item.name}
-                  price={item.price}
-                  description={item.description}
-                  image={url + "/images/" + item.image}
-                  key={item._id}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="flex justify-center w-full h-[500px] ">
-              <h1>No Items Found!</h1>
-            </div>
-          )}
-        </div>
+        {loading ? (
+          <Loader />
+        ) : (
+          <div className="">
+            {filteredItems.length > 0 ? (
+              <div className="items flex flex-wrap gap-5 items-center justify-center">
+                {filteredItems.map((item) => (
+                  <FoodItemCard
+                    addToCart={addToCart}
+                    removeFromCart={removeFromCart}
+                    cart={cart}
+                    id={item._id}
+                    name={item.name}
+                    price={item.price}
+                    description={item.description}
+                    image={url + "/images/" + item.image}
+                    key={item._id}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="flex justify-center w-full h-[500px] ">
+                <h1>No Items Found!</h1>
+              </div>
+            )}
+          </div>
+        )}
       </div>
       <Footer />
     </div>

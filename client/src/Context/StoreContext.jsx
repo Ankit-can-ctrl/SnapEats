@@ -16,7 +16,7 @@ export const StoreContextProvider = ({ children }) => {
   });
   const deliveryFee = 2;
 
-  const addToCart = (id) => {
+  const addToCart = async (id) => {
     if (token) {
       setCart((prev) => {
         const existing = prev.find((item) => item.id === id);
@@ -27,24 +27,45 @@ export const StoreContextProvider = ({ children }) => {
         }
         return [...prev, { id, quantity: 1 }];
       });
+
+      await axios.post(
+        `${url}/api/cart/add`,
+        { itemId: id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     } else {
       toast.error("Please Login to add items");
     }
   };
 
-  const removeFromCart = (id) => {
-    setCart((prev) => {
-      const existing = prev.find((item) => item.id === id);
-      if (!existing) return prev;
+  const removeFromCart = async (id) => {
+    if (token) {
+      setCart((prev) => {
+        const existing = prev.find((item) => item.id === id);
+        if (!existing) return prev;
 
-      if (existing.quantity === 1) {
-        return prev.filter((item) => item.id !== id);
-      }
+        if (existing.quantity === 1) {
+          return prev.filter((item) => item.id !== id);
+        }
 
-      return prev.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity - 1 } : item
-      );
-    });
+        return prev.map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+        );
+      });
+
+      await axios.delete(`${url}/api/cart/remove`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          itemId: id, //this is how we send the data in delete request
+        },
+      });
+    }
   };
 
   const fetchFoodList = async () => {
@@ -52,17 +73,36 @@ export const StoreContextProvider = ({ children }) => {
     setFoodList(response.data.FoodList);
   };
 
+  const loadCartData = async (token) => {
+    try {
+      const response = await axios.get(url + "/api/cart/getCart", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const cartItems = response.data;
+
+      const cartItemArray = Object.entries(cartItems).map(([id, quantity]) => ({
+        id,
+        quantity,
+      }));
+      setCart(cartItemArray);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     async function loadData() {
       fetchFoodList();
       if (localStorage.getItem("token")) {
         setToken(localStorage.getItem("token"));
+        await loadCartData(localStorage.getItem("token"));
       }
     }
     loadData();
   }, []);
-
-  console.log(cart);
 
   const contextValue = {
     food_items,
