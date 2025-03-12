@@ -31,13 +31,13 @@ const addToCart = async (req, res, next) => {
 const removeFromCart = async (req, res, next) => {
   try {
     const { itemId } = req.body;
-    console.log(itemId);
+
     if (!itemId) {
       return res.status(403).json({
         message: "Please Provide Item Id",
       });
     }
-    console.log("itemId:", itemId);
+
     let userData = await userModel.findById({ _id: req.body.userId });
     let cartData = await userData.cartData;
 
