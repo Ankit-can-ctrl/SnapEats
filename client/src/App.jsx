@@ -8,6 +8,7 @@ import AddItems from "./components/admin/adminPages/AddItems";
 import Orders from "./components/admin/adminPages/Orders";
 import ListItems from "./components/admin/adminPages/ListItems";
 import { ToastContainer } from "react-toastify";
+import Verify from "./pages/Verify";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/menu" element={<MenuItems />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/verify" element={<Verify />} />
         <Route path="/admin" element={<AdminPanel />}>
           <Route index element={<AddItems />} />
           <Route path="list" element={<ListItems />} />
