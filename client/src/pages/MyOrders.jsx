@@ -10,7 +10,6 @@ const MyOrders = () => {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
   const { url } = useStoreContext();
-  const isoString = "2025-03-12T14:20:30.577+00:00";
 
   let reversedOrders = [...orders].reverse();
 

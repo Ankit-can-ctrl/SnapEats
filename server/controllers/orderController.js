@@ -87,4 +87,30 @@ const userOrders = async (req, res) => {
   }
 };
 
-export { placeOrder, verifyOrder, userOrders };
+const allOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    return res.json(orders);
+  } catch (err) {
+    console.log("error in getting user orders", err.message);
+    res
+      .status(500)
+      .json({ message: "something went wrong while fetching orders" });
+  }
+};
+
+const updateStatus = async (req, res) => {
+  try {
+    await orderModel.findByIdAndUpdate(req.body.orderId, {
+      status: req.body.status,
+    });
+    res.status(200).json({ message: "order updated successfully" });
+  } catch (err) {
+    console.log("error in updating status", err.message);
+    res
+      .status(500)
+      .json({ message: "something went wrong while updating status" });
+  }
+};
+
+export { placeOrder, verifyOrder, userOrders, allOrders, updateStatus };
