@@ -75,8 +75,11 @@ export default function AuthModal({
           password: "",
         });
         onClose();
+      } else {
+        toast.error(response.data.message || response.data.error);
       }
     } catch (error) {
+      console.log(error);
       toast.error(error.response.data.error);
     }
   };

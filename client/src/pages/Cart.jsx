@@ -122,15 +122,15 @@ function Cart() {
               <p className="text-3xl font-heavy">Cart Total</p>
               <div className="flex w-[300px] md:w-[400px] justify-between border-b-2 border-gray-100">
                 <p>SubTotal</p>
-                <p>${subtotal}</p>
+                <p>${subtotal.toFixed(2)}</p>
               </div>
               <div className="flex w-[300px] md:w-[400px] justify-between border-b-2 border-gray-100">
                 <p>Delivery Fee</p>
-                <p>${deliveryFee}</p>
+                <p>${deliveryFee.toFixed(2)}</p>
               </div>
               <div className="flex w-[300px] md:w-[400px] justify-between border-b-2 border-gray-100">
                 <p>Net Total</p>
-                <p>{subtotal + deliveryFee}</p>
+                <p>${(subtotal + deliveryFee).toFixed(2)}</p>
               </div>
               <div className="checkout_btn">
                 <MainButton

@@ -58,21 +58,19 @@ const verifyOrder = async (req, res) => {
   const { orderId, success } = req.body;
 
   try {
-    if (success) {
+    if (success === "true") {
       await orderModel.findByIdAndUpdate(orderId, { payment: true });
       res.status(200).json({ message: "Payment Successful" });
     } else {
       await orderModel.findByIdAndDelete(orderId);
-      res.status(403).json({ message: "Payment Failed" });
+      res.status(400).json({ message: "Payment Failed" });
     }
   } catch (error) {
     console.log("error in verifying", error);
-    res
-      .status(500)
-      .json({
-        message:
-          "Something went wrong while processing your request. Please try again later.",
-      });
+    res.status(500).json({
+      message:
+        "Something went wrong while processing your request. Please try again later.",
+    });
   }
 };
 

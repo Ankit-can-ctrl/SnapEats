@@ -64,9 +64,6 @@ const getCartItems = async (req, res, next) => {
   try {
     let userData = await userModel.findById({ _id: req.body.userId });
     let cartData = await userData.cartData;
-    if (Object.keys(cartData).length === 0) {
-      return res.status(200).json({ message: "Your Cart Is Empty!" });
-    }
     res.status(200).json(cartData);
   } catch (err) {
     console.log(err);

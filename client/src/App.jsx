@@ -9,6 +9,7 @@ import Orders from "./components/admin/adminPages/Orders";
 import ListItems from "./components/admin/adminPages/ListItems";
 import { ToastContainer } from "react-toastify";
 import Verify from "./pages/Verify";
+import MyOrders from "./pages/MyOrders";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/verify" element={<Verify />} />
+        <Route path="/myorders" element={<MyOrders />} />
         <Route path="/admin" element={<AdminPanel />}>
           <Route index element={<AddItems />} />
           <Route path="list" element={<ListItems />} />
