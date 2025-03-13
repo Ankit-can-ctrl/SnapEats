@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect } from "react";
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser, FaBox } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import { useStoreContext } from "../Context/StoreContext";
 
 const AccountMenu = ({ logout }) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
+  const { user } = useStoreContext();
 
   // Handle click outside
   useEffect(() => {
@@ -31,15 +33,17 @@ const AccountMenu = ({ logout }) => {
         onClick={toggleDropdown}
         className="h-12 w-12 rounded-full bg-secodary flex items-center justify-center"
       >
-        <span className="text-white font-semibold text-xl">JD</span>
+        <span className="text-white font-semibold text-xl">
+          {user.name[0].toUpperCase()}
+        </span>
       </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
         <div className="absolute right-0  mt-2 min-w-full rounded-lg bg-white py-2 shadow-xl ring-1 ring-black ring-opacity-5 z-[100]">
           <div className="px-4 py-2">
-            <p className="text-sm font-medium text-gray-900">John Doe</p>
-            <p className="text-sm text-gray-500">john@example.com</p>
+            <p className="text-sm font-medium text-gray-900">{user.name}</p>
+            <p className="text-sm text-gray-500">{user.email}</p>
           </div>
           <div className="border-t border-gray-100" />
           <Link
@@ -48,6 +52,14 @@ const AccountMenu = ({ logout }) => {
           >
             <FaRegUser />
             <span>Profile</span>
+          </Link>
+          <div className="border-t border-gray-100" />
+          <Link
+            to="/myorders"
+            className=" text-black flex px-4 py-2 text-sm items-center gap-2 hover:bg-gray-100"
+          >
+            <FaBox />
+            <span>My Orders</span>
           </Link>
 
           <div className="border-t border-gray-100" />

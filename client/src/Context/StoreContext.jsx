@@ -7,6 +7,10 @@ export const StoreContext = createContext({ food_items: [] });
 
 export const StoreContextProvider = ({ children }) => {
   const url = "http://localhost:5000";
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+  });
   const [food_list, setFoodList] = useState([]);
   const [token, setToken] = useState("");
   const food_items = food_list;
@@ -93,6 +97,25 @@ export const StoreContextProvider = ({ children }) => {
     }
   };
 
+  const getUserData = async () => {
+    if (token) {
+      try {
+        const response = await axios.get(url + "/api/users/userdata", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setUser({
+          name: response.data.name,
+          email: response.data.email,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   useEffect(() => {
     async function loadData() {
       fetchFoodList();
@@ -102,7 +125,8 @@ export const StoreContextProvider = ({ children }) => {
       }
     }
     loadData();
-  }, []);
+    getUserData();
+  }, [token]);
 
   const contextValue = {
     food_items,
@@ -115,6 +139,7 @@ export const StoreContextProvider = ({ children }) => {
     url,
     token,
     setToken,
+    user,
   };
 
   return (

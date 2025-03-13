@@ -88,4 +88,15 @@ const loginUser = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser };
+const getUserData = async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    const userData = await userModel.findById(userId);
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(500).send("Error occurred during fetching user data");
+  }
+};
+
+export { registerUser, loginUser, getUserData };
