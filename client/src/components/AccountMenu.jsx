@@ -34,7 +34,7 @@ const AccountMenu = ({ logout }) => {
         className="h-12 w-12 rounded-full bg-secodary flex items-center justify-center"
       >
         <span className="text-white font-semibold text-xl">
-          {user.name[0].toUpperCase()}
+          {user.name && user.name[0].toUpperCase()}
         </span>
       </button>
 

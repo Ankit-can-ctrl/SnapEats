@@ -29,7 +29,6 @@ function CheckoutPage() {
   });
 
   const filteredCartItems = cartItems?.filter((item) => item !== null);
-  console.log(filteredCartItems);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

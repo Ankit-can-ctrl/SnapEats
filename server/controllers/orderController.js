@@ -74,4 +74,17 @@ const verifyOrder = async (req, res) => {
   }
 };
 
-export { placeOrder, verifyOrder };
+const userOrders = async (req, res) => {
+  const { userId } = req.body;
+  try {
+    const orders = await orderModel.find({ userId: userId });
+    return res.json(orders);
+  } catch (err) {
+    console.log("error in getting user orders", err.message);
+    res
+      .status(500)
+      .json({ message: "something went wrong while fetching orders" });
+  }
+};
+
+export { placeOrder, verifyOrder, userOrders };
