@@ -4,24 +4,24 @@ function AdminOptions() {
   const location = useLocation(); // Get current path
 
   return (
-    <div className="bg-gray-200 p-5">
+    <div className="bg-primary p-5">
       <ul className="flex items-center justify-between">
-        <li>
+        <li className="">
           <Link
             to="/admin"
-            className={`p-2 ${
-              location.pathname === "/admin" ? "bg-blue-500 text-white" : ""
+            className={`p-2 rounded-lg font-semibold ${
+              location.pathname === "/admin" ? "bg-secodary text-black" : ""
             }`}
           >
-            Add Item
+            Add item
           </Link>
         </li>
         <li>
           <Link
             to="/admin/list"
-            className={`p-2 ${
+            className={`p-2 rounded-lg font-semibold ${
               location.pathname === "/admin/list"
-                ? "bg-blue-500 text-white"
+                ? "bg-secodary text-black"
                 : ""
             }`}
           >
@@ -31,9 +31,9 @@ function AdminOptions() {
         <li>
           <Link
             to="/admin/orders"
-            className={`p-2 ${
+            className={`p-2 rounded-lg font-semibold ${
               location.pathname === "/admin/orders"
-                ? "bg-blue-500 text-white"
+                ? "bg-secodary text-black"
                 : ""
             }`}
           >

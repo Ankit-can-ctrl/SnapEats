@@ -86,7 +86,7 @@ const AddItems = () => {
 
   return (
     <div className=" w-full h-full flex items-center justify-center pt-20 ">
-      <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md ">
+      <div className="max-w-md mx-auto bg-secodary p-6 rounded-lg shadow-md ">
         <h2 className="text-xl font-semibold mb-4">Add New Food Item</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Image Upload */}
@@ -96,7 +96,7 @@ const AddItems = () => {
               type="file"
               accept="image/*"
               onChange={handleImageChange}
-              className="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-blue-500 file:text-white hover:file:bg-blue-600"
+              className="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-primary file:text-white hover:file:bg-red-500 font-semibold"
             />
           </label>
           {formData.imagePreview && (
@@ -160,7 +160,7 @@ const AddItems = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+            className="w-full bg-primary text-white py-2 rounded-md hover:bg-red-400"
           >
             Add Item
           </button>

@@ -39,9 +39,7 @@ const Orders = () => {
 
   return (
     <div className="max-w-5xl mx-auto p-6 bg-gray-100 min-h-screen">
-      <h2 className="text-3xl font-bold text-red-600 mb-6 text-center">
-        Admin Orders
-      </h2>
+      <h2 className="text-2xl font-bold  mb-6 text-center">Admin Orders</h2>
       {orders &&
         reverseOrder &&
         reverseOrder.map((order) => (
