@@ -12,6 +12,8 @@ import Verify from "./pages/Verify";
 import MyOrders from "./pages/MyOrders";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import PaymentProtectedRoutes from "./components/PaymentProtectedRoutes";
+import ContactUs from "./pages/ContactUs";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/about" element={<AboutUs />} />
         <Route path="/menu" element={<MenuItems />} />
 
         {/* ===================User Protected Routes====================== */}
