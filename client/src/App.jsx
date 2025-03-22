@@ -10,6 +10,8 @@ import ListItems from "./components/admin/adminPages/ListItems";
 import { ToastContainer } from "react-toastify";
 import Verify from "./pages/Verify";
 import MyOrders from "./pages/MyOrders";
+import ProtectedRoutes from "./components/ProtectedRoutes";
+import PaymentProtectedRoutes from "./components/PaymentProtectedRoutes";
 
 function App() {
   return (
@@ -18,10 +20,20 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<MenuItems />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/verify" element={<Verify />} />
-        <Route path="/myorders" element={<MyOrders />} />
+
+        {/* ===================User Protected Routes====================== */}
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/myorders" element={<MyOrders />} />
+          <Route path="/verify" element={<Verify />} />
+
+          {/* ====================Payment and Order Related Routes=========================== */}
+          <Route element={<PaymentProtectedRoutes />}>
+            <Route path="/checkout" element={<CheckoutPage />} />
+          </Route>
+        </Route>
+
+        {/* ===================Admin Protected Routes===================== */}
         <Route path="/admin" element={<AdminPanel />}>
           <Route index element={<AddItems />} />
           <Route path="list" element={<ListItems />} />

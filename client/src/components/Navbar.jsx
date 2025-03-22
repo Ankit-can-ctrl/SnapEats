@@ -15,7 +15,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModelOpen] = useState(false);
   const [loginOn, setLoginOn] = useState();
-
+  const userRole = localStorage.getItem("userRole");
   const navigate = useNavigate();
 
   const handleSignupOpenAuthModal = () => {
@@ -32,6 +32,7 @@ function Navbar() {
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
     setToken("");
     navigate("/");
     toast.success("Logged out successfully");
@@ -58,6 +59,9 @@ function Navbar() {
             <CustomLink path="/menu" text="Menu" />
             <CustomLink path="/about" text="About Us" />
             <CustomLink path="/contact" text="Contact Us" />
+            {userRole === "admin" && (
+              <CustomLink path="/admin" text="Admin Panel" />
+            )}
           </div>
 
           {token ? (
@@ -150,6 +154,13 @@ function Navbar() {
             path="/contact"
             text="Contact Us"
           />
+          {userRole === "admin" && (
+            <CustomLink
+              onClickHandler={() => setIsOpen(false)}
+              path="/admin"
+              text="Admin Panel"
+            />
+          )}
           {token ? (
             <MainButton onClickHandler={handleSignOut} text={"Sign Out"} />
           ) : (

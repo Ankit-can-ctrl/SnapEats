@@ -87,7 +87,10 @@ const MyOrders = () => {
                 </span>
               </div>
               {order.status !== "Delivered" && (
-                <button className="mt-4 w-full bg-red-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors duration-300 shadow-md">
+                <button
+                  onClick={userOrders}
+                  className="mt-4 w-full bg-red-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors duration-300 shadow-md"
+                >
                   Track Order
                 </button>
               )}

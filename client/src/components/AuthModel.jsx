@@ -16,7 +16,7 @@ export default function AuthModal({
     password: "",
   });
 
-  const { url, setToken } = useStoreContext();
+  const { url, setToken, setUserRole } = useStoreContext();
 
   const changeInputHandler = (e) => {
     const { name, value } = e.target;
@@ -68,7 +68,10 @@ export default function AuthModal({
       if (response.status === 201 || response.status === 200) {
         toast.success(response.data.message);
         setToken(response.data.token);
+        // const token = response.data.token;
+        // const expiryTime = Date.now() + 3600 * 1000;
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userRole", response.data.role);
         setAuthData({
           name: "",
           email: "",

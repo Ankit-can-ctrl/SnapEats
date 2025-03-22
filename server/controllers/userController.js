@@ -7,8 +7,8 @@ import { validationResult } from "express-validator";
 
 dotenv.config();
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "3d" });
+const generateToken = (id, role) => {
+  return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: "3d" });
 };
 
 const registerUser = async (req, res, next) => {
@@ -34,7 +34,7 @@ const registerUser = async (req, res, next) => {
       password,
     });
 
-    const token = generateToken(newUser._id);
+    const token = generateToken(newUser._id, newUser.role);
 
     res.status(201).json({
       success: true, // Make sure this is set to true for successful registration
@@ -75,10 +75,11 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const token = generateToken(user._id);
+    const token = generateToken(user._id, user.role);
     res.status(200).json({
       message: "Login successful",
       token,
+      role: user.role,
     });
   } catch (error) {
     console.error(error);

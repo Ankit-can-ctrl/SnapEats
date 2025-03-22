@@ -18,6 +18,7 @@ export const StoreContextProvider = ({ children }) => {
   const [checkoutValues, setCheckoutValues] = useState({
     subtotal: 0,
   });
+
   const deliveryFee = 2;
 
   const addToCart = async (id) => {
