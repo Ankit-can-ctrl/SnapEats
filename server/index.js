@@ -17,7 +17,7 @@ const app = express();
 // CORS configuration
 const allowedOrigins = [
   process.env.FRONTEND_URL,
-  "https://your-frontend-domain.vercel.app", // Add your Vercel frontend domain
+  "https://snap-eats-8z7i.vercel.app/", // Add your Vercel frontend domain
 ];
 
 const corsOptions = {

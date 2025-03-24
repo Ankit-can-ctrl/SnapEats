@@ -7,7 +7,8 @@ export const StoreContext = createContext({ food_items: [] });
 
 export const StoreContextProvider = ({ children }) => {
   const url =
-    import.meta.env.VITE_REACT_APP_BACKEND_URL || "http://localhost:5000";
+    import.meta.env.VITE_REACT_APP_BACKEND_URL ||
+    "https://snap-eats.vercel.app/";
   const [user, setUser] = useState({
     name: "",
     email: "",
