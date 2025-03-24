@@ -16,13 +16,14 @@ const app = express();
 
 // CORS configuration
 const allowedOrigins = [
-  process.env.FRONTEND_URL,
-  "https://snap-eats-8z7i.vercel.app/", // Add your Vercel frontend domain
+  "https://snap-eats-8z7i.vercel.app", // Your actual frontend Vercel domain
+  "http://localhost:5173", // Local development
+  "http://localhost:3000", // Local development alternative
 ];
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
@@ -33,9 +34,7 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
-//cors() allows your frontend to make API calls to your backend without being blocked.
-app.use(cors(corsOptions));
-// middleware
+app.use(cors(corsOptions)); // middleware
 // new version of body parser
 //parse json data
 app.use(express.json());

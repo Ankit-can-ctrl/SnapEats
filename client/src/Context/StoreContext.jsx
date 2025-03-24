@@ -6,9 +6,9 @@ import { toast } from "react-toastify";
 export const StoreContext = createContext({ food_items: [] });
 
 export const StoreContextProvider = ({ children }) => {
-  const url =
-    import.meta.env.VITE_REACT_APP_BACKEND_URL ||
-    "https://snap-eats.vercel.app/";
+  const url = import.meta.env.PROD
+    ? "https://snap-eats.vercel.app" // Remove trailing slash
+    : "http://localhost:5000";
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -76,8 +76,13 @@ export const StoreContextProvider = ({ children }) => {
   };
 
   const fetchFoodList = async () => {
-    const response = await axios.get(url + "/api/food/list");
-    setFoodList(response.data.FoodList);
+    try {
+      const response = await axios.get(`${url}/api/food/list`);
+      setFoodList(response.data.FoodList);
+    } catch (error) {
+      console.error("Error fetching food list:", error);
+      toast.error("Failed to fetch food items");
+    }
   };
 
   const loadCartData = async (token) => {
