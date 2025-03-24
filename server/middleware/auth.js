@@ -10,6 +10,7 @@ const auth = async (req, res, next) => {
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     req.body.userId = decodedToken.id;
+    req.body.expTime = decodedToken.exp;
     next();
   } catch (error) {
     console.log("error:", error);

@@ -14,8 +14,27 @@ const port = process.env.PORT;
 
 const app = express();
 
+// CORS configuration
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "https://your-frontend-domain.vercel.app", // Add your Vercel frontend domain
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
 //cors() allows your frontend to make API calls to your backend without being blocked.
-app.use(cors());
+app.use(cors(corsOptions));
 // middleware
 // new version of body parser
 //parse json data
