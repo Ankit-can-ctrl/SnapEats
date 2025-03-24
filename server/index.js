@@ -14,37 +14,27 @@ const port = process.env.PORT;
 
 const app = express();
 
-// CORS configuration
-const allowedOrigins = [
-  "https://snap-eats-8z7i.vercel.app", // Your actual frontend Vercel domain
-  "http://localhost:5173", // Local development
-  "http://localhost:3000", // Local development alternative
-];
+// CORS configuration - PUT THIS BEFORE ANY ROUTES
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://snap-eats-8z7i.vercel.app');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Credentials', true);
+  
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  next();
+});
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
-
-app.use(cors(corsOptions)); // middleware
-// new version of body parser
-//parse json data
+// Regular middleware
 app.use(express.json());
-// parse urlencoded data
 app.use(express.urlencoded({ extended: true }));
 
 // connect db
 connectDB();
 
-// api endpoints
+// Routes
 app.use("/api/food", foodRouter);
 app.use("/images", express.static("uploads"));
 app.use("/api/users", userRouter);

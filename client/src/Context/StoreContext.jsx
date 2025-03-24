@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../utils/axiosConfig";
 import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -35,8 +35,8 @@ export const StoreContextProvider = ({ children }) => {
         return [...prev, { id, quantity: 1 }];
       });
 
-      await axios.post(
-        `${url}/api/cart/add`,
+      await axiosInstance.post(
+        "/api/cart/add",
         { itemId: id },
         {
           headers: {
@@ -64,7 +64,7 @@ export const StoreContextProvider = ({ children }) => {
         );
       });
 
-      await axios.delete(`${url}/api/cart/remove`, {
+      await axiosInstance.delete("/api/cart/remove", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -77,7 +77,7 @@ export const StoreContextProvider = ({ children }) => {
 
   const fetchFoodList = async () => {
     try {
-      const response = await axios.get(`${url}/api/food/list`);
+      const response = await axiosInstance.get("/api/food/list");
       setFoodList(response.data.FoodList);
     } catch (error) {
       console.error("Error fetching food list:", error);
@@ -87,7 +87,7 @@ export const StoreContextProvider = ({ children }) => {
 
   const loadCartData = async (token) => {
     try {
-      const response = await axios.get(url + "/api/cart/getCart", {
+      const response = await axiosInstance.get("/api/cart/getCart", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -108,7 +108,7 @@ export const StoreContextProvider = ({ children }) => {
   const getUserData = async () => {
     if (token) {
       try {
-        const response = await axios.get(url + "/api/users/userdata", {
+        const response = await axiosInstance.get("/api/users/userdata", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
