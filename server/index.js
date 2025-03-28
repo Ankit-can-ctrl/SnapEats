@@ -16,7 +16,9 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://your-frontend.vercel.app",
+
+  "https://snap-eats-frontend-two.vercel.app/",
+  process.env.FRONTEND_URL,
 ];
 
 //cors() allows your frontend to make API calls to your backend without being blocked.
