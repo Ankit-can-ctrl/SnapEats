@@ -14,10 +14,19 @@ const port = process.env.PORT;
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://your-frontend.vercel.app",
+];
+
 //cors() allows your frontend to make API calls to your backend without being blocked.
-app.use(cors());
-// middleware
-// new version of body parser
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true, // Allow cookies if needed
+  })
+);
+
 //parse json data
 app.use(express.json());
 // parse urlencoded data
