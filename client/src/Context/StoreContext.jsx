@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 export const StoreContext = createContext({ food_items: [] });
 
 export const StoreContextProvider = ({ children }) => {
-  const url = `${import.meta.env.VITE_BACKEND_URL}`;
+  const url = import.meta.env.VITE_REACT_APP_BACKEND_URL;
   const [user, setUser] = useState({
     name: "",
     email: "",

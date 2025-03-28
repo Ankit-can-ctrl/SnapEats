@@ -76,6 +76,8 @@ const verifyOrder = async (req, res) => {
 
 const userOrders = async (req, res) => {
   const { userId } = req.body;
+  const expTime = new Date(req.body.expTime * 1000).toLocaleString();
+
   try {
     const orders = await orderModel.find({ userId: userId });
     return res.json(orders);
