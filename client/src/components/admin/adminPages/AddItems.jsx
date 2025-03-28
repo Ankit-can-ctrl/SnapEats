@@ -3,7 +3,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 const AddItems = () => {
-  const backendUrl = "http://localhost:5000";
+  const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
   const categories = ["Pizza", "Burger", "Pasta", "Drinks", "Desserts"];
 
   const [formData, setFormData] = useState({

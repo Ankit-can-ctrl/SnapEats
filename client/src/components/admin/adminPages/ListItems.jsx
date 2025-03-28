@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const ListItems = () => {
-  const backendUrl = "http://localhost:5000";
+  const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
   const [foodItems, setFoodItems] = useState([]);
   const [editingItem, setEditingItem] = useState(null);
   const [formData, setFormData] = useState({
@@ -138,7 +138,9 @@ const ListItems = () => {
               <tr key={item._id} className="text-center border-b">
                 <td className="p-2">
                   <img
-                    src={`http://localhost:5000/images/${item.image}`}
+                    src={`${
+                      import.meta.env.VITE_REACT_APP_BACKEND_URL
+                    }/images/${item.image}`}
                     alt={item.name}
                     className="h-16 w-16 rounded-md object-cover"
                   />
@@ -241,7 +243,9 @@ const ListItems = () => {
           >
             <div className="flex items-center space-x-3">
               <img
-                src={`http://localhost:5000/images/${item.image}`}
+                src={`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/images/${
+                  item.image
+                }`}
                 alt={item.name}
                 className="h-16 w-16 rounded-md object-cover"
               />
