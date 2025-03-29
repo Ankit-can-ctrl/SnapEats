@@ -45,8 +45,11 @@ app.get("/", (req, res) => {
   res.json({ message: "API is working!" });
 });
 
-app.get("/api/test", (req, res) => {
-  res.json({ message: "API test route is working!" });
+app.get("/", (req, res) => {
+  res.send("APi is working fine!");
 });
+
+// global error handler for custom error handler model
+app.use(globalErrorHandler);
 
 export default app;
