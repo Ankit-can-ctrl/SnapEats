@@ -16,10 +16,13 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-
-  "https://snap-eats-frontend-two.vercel.app/",
-  process.env.FRONTEND_URL,
+  "https://snap-eats-frontend-two.vercel.app",
 ];
+
+// Add your production domain if it's different
+if (process.env.FRONTEND_URL) {
+  allowedOrigins.push(process.env.FRONTEND_URL);
+}
 
 //cors() allows your frontend to make API calls to your backend without being blocked.
 app.use(
@@ -51,6 +54,12 @@ app.get("/", (req, res) => {
 // global error handler for custom error handler model
 app.use(globalErrorHandler);
 
-app.listen(process.env.PORT, () =>
-  console.log("server started on port " + port + "!")
-);
+// At the end of your index.js file, replace the app.listen with:
+if (process.env.NODE_ENV !== "production") {
+  app.listen(process.env.PORT, () =>
+    console.log("server started on port " + port + "!")
+  );
+}
+
+// Export the Express app for Vercel
+export default app;
