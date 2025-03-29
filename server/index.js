@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
+import foodRouter from "./routes/foodRoutes.js";
 
 // Loads env variables in .env file into process.env
 dotenv.config();
@@ -28,6 +29,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 connectDB();
+
+// api endpoints
+app.use("/api/food", foodRouter);
 
 app.get("/", (req, res) => {
   res.json({ message: "API is working!" });
