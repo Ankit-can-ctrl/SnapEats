@@ -1,5 +1,10 @@
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from "./config/db.js";
+
+// Loads env variables in .env file into process.env
+dotenv.config();
 
 const app = express();
 
@@ -18,6 +23,11 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+connectDB();
 
 app.get("/", (req, res) => {
   res.json({ message: "API is working!" });
