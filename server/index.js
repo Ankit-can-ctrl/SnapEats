@@ -47,6 +47,9 @@ app.use("/api/users", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/orders", orderRouter);
 
+app.get("/favicon.ico", (req, res) => {
+  res.status(204).end();
+});
 app.get("/", (req, res) => {
   res.send("APi is working fine!");
 });
