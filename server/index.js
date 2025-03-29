@@ -16,6 +16,7 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
   "https://snap-eats-frontend-two.vercel.app",
+  "https://snap-eats-frontend-fgptmk5ha-ankits-projects-bc329337.vercel.app",
 ];
 
 if (process.env.FRONTEND_URL) {
